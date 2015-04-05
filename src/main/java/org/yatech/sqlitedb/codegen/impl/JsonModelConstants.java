@@ -38,5 +38,6 @@ final class JsonModelConstants {
 		static final String TYPE_FOREIGN_KEY = "ForeignKey";
 		static final String TYPE_UNIQUE = "Unique";
 		static final String TYPE_DEFAULT_VALUE = "DefaultValue";
+		static final String TYPE_NOT_NULL = "NotNull";
 	}
 }

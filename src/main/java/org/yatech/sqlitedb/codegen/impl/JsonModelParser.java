@@ -18,6 +18,7 @@ import org.yatech.sqlitedb.codegen.model.DefaultValueColumnConstraint;
 import org.yatech.sqlitedb.codegen.model.ForeignKeyColumnConstraint;
 import org.yatech.sqlitedb.codegen.model.ForeignKeyTableConstraint;
 import org.yatech.sqlitedb.codegen.model.IndexedColumn;
+import org.yatech.sqlitedb.codegen.model.NotNullColumnConstraint;
 import org.yatech.sqlitedb.codegen.model.OrderDirection;
 import org.yatech.sqlitedb.codegen.model.PrimaryKeyColumnConstraint;
 import org.yatech.sqlitedb.codegen.model.PrimaryKeyTableConstraint;
@@ -137,6 +138,8 @@ class JsonModelParser {
 			return toModelForeignKeyColumnConstraint(jsonObject);			
 		} else if (JsonModelConstants.Constraint.TYPE_UNIQUE.equals(constraintType)) {
 			return toModelUniqueColumnConstraint(jsonObject);
+		} else if (JsonModelConstants.Constraint.TYPE_NOT_NULL.equals(constraintType)) {
+			return toModelNotNullColumnConstraint(jsonObject);
 		} else if (JsonModelConstants.Constraint.TYPE_DEFAULT_VALUE.equals(constraintType)) {
 			return toModelDefauleValueColumnConstraint(jsonObject);
 		}
@@ -164,6 +167,11 @@ class JsonModelParser {
 
 	private ColumnConstraint toModelUniqueColumnConstraint(JSONObject jsonObject) {
 		UniqueColumnConstraint constraint = new UniqueColumnConstraint();
+		return constraint;
+	}
+
+	private ColumnConstraint toModelNotNullColumnConstraint(JSONObject jsonObject) {
+		NotNullColumnConstraint constraint = new NotNullColumnConstraint();
 		return constraint;
 	}
 
