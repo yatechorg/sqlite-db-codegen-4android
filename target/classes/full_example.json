@@ -1,0 +1,91 @@
+{
+	"databaseName" : "MY_DB",
+	"tables" : [
+	    {
+	    	"tableName" : "TABLE1",
+	    	"columns" : [
+	    	    {
+	    	    	"columnName" : "COL1",
+	    	    	"dataType" : "INTEGER",
+	    	    	"constraints" : [
+	    	    	    {
+	    	    	    	"constraintType" : "PrimaryKey",
+	    	    	    	"orderDirection" : "DESC",
+	    	    	    	"autoIncrement" : true
+	    	    	    }
+	    	    	],
+	    	    	"generationSettings" : {
+	    	    		"fieldName" : "col1"
+	    	    	}
+	    	    },
+	    	    {
+	    	    	"columnName" : "COL2",
+	    	    	"dataType" : "TEXT",
+	    	    	"constraints" : [
+ 	    	    	    {
+ 	    	    	    	"constraintType" : "NotNull"
+ 	    	    	    },
+ 	    	    	    {
+ 	    	    	    	"constraintType" : "Unique"
+ 	    	    	    },
+ 	    	    	    {
+ 	    	    	    	"constraintType" : "DefaultValue",
+ 	    	    	    	"value" : "hello world!"
+ 	    	    	    }
+ 	    	    	],
+	    	    	"generationSettings" : {
+	    	    		"fieldName" : "col2"
+	    	    	}
+	    	    }
+	    	],
+	    	"generationSettings" : {
+	    		"className" : "Table1"
+	    	}
+	    },
+	    {
+	    	"tableName" : "TABLE2",
+	    	"columns" : [
+	    	    {
+	    	    	"columnName" : "COL1",
+	    	    	"dataType" : "INTEGER",
+	    	    	"generationSettings" : {
+	    	    		"fieldName" : "col1"
+	    	    	}
+	    	    },
+	    	    {
+	    	    	"columnName" : "COL2",
+	    	    	"dataType" : "INTEGER",
+	    	    	"constraints" : [
+	    	    	    {
+	    	    	    	"constraintType" : "ForeginKey",
+	    	    	    	"foreignTable" : "TABLE1",
+	    	    	    	"foreignColumn" : "COL1"
+	    	    	    }
+	    	    	],
+	    	    	"generationSettings" : {
+	    	    		"fieldName" : "col2",
+	    	    		"renamedFrom" : "PREV_COL2",
+	    	    	}
+	    	    }
+	    	],
+	    	"constraints" : [
+	    	    {
+	    	    	"constraintType" : "PrimaryKey",
+	    	    	"columns" : [
+	    	    	    {
+	    	    	    	"indexedColumnName" : "COL1",
+	    	    	    	"orderDirection" : "ASC"
+	    	    	    }
+	    	    	]
+	    	    }
+	    	],
+	    	"generationSettings" : {
+	    		"className" : "Table2",
+	    		"renamedFrom" : "PREV_TABLE2"
+	    	}
+	    }
+	],
+	"generationSettings" : {
+		"databaseFileName" : "mydb"
+	}
+}

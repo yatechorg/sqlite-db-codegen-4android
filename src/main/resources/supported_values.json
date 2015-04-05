@@ -1,0 +1,7 @@
+{
+	"dataType" : ["TEXT", "INTEGER", "REAL", "BLOB", "NONE"],
+	"table.constraintType" : ["PrimaryKey", "ForeignKey", "Unique"],
+	"column.constraintType" : ["PrimaryKey", "ForeignKey", "Unique", "DefaultValue", "NotNull"],
+	"orderDirection" : ["ASC", "DESC"],
+	"modificationType" : ["Add", "Delete", "Modify", "NoChange"]
+}

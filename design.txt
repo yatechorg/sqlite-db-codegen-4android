@@ -1,0 +1,37 @@
+Design Decisions
+----------------
+
+* Input: 
+  - Database model as JSON
+  - Package name where generated code will be placed
+    (optional - default: "")
+  - Flag to indicate whether to generate data access classes
+    (optional - default: "true")
+  - Previous database JSON model 
+    (optional - if not given the model is considered as new) 
+* Output:
+  List of artifacts to store, including:
+  - Generated code for creating/updating the database
+  - Generated code for ORM
+  - The input JSON to be used for comparison in the next code generation iteration
+
+* Algorithm:
+  - Parse the database model from the JSON input. This may fail with ParseException
+  - Compare given model to the previous model, if given, to create the database update instructions. Note:
+    # If a named entity exists only in the new model and it has generation settings with "renamedFrom" -
+      rename it and look for modifications in its children
+    # If a named entity exists only in the new model - add it
+    # If a named entity exists only in the old model - remove it
+    # If a named entity exists only in both models - look for modifications in its children
+  - Create artifact descriptors with the code for the database create / update instructions
+  - Create artifact descriptors with the model classes
+  - Create artifact descriptor with the input JSON model
+ 
+* Predefined / Default Values / Strategies:
+  - JSON model file name: "database_model.json"
+  - Column data type: "NONE"
+  - Database file name: Same as the database name
+  - Order direction: "ASC"
+  - Column auto-increment: "false"
+  - Generated field name: Same as the column name in CamelCase, '_' are removed
+  - Generated class name: Same as the table name in CamelCase, '_' are removed
