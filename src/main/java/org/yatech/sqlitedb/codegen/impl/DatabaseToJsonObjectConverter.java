@@ -36,17 +36,17 @@ class DatabaseToJsonObjectConverter implements Visitor {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put(JsonModelConstants.Database.DATABASE_NAME, database.getName());
 		jsonObject.put(JsonModelConstants.Database.TABLES, tableListToJsonArray(database.getTables()));
-		jsonObject.put(JsonModelConstants.Database.GENERATION_SETTINGS, generationSettingsToJsonObject(database.getGenerationSettings()));
+		putIfValueNotNull(jsonObject, JsonModelConstants.Database.GENERATION_SETTINGS, generationSettingsToJsonObject(database.getGenerationSettings()));
 		result = jsonObject;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private JSONObject generationSettingsToJsonObject(Map<String, Object> generationSettings) {
 		JSONObject jsonObject = new JSONObject();
 		if (generationSettings != null) {
 			jsonObject.putAll(generationSettings);
 		}
-		return jsonObject;
+		return jsonObject.isEmpty() ? null : jsonObject;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -66,8 +66,8 @@ class DatabaseToJsonObjectConverter implements Visitor {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put(JsonModelConstants.Table.TABLE_NAME, table.getName());
 		jsonObject.put(JsonModelConstants.Table.COLUMNS, columnListToJsonArray(table.getColumns()));
-		jsonObject.put(JsonModelConstants.Table.CONSTRAINTS, tableConstraintListToJsonArray(table.getConstraints()));
-		jsonObject.put(JsonModelConstants.Table.GENERATION_SETTINGS, generationSettingsToJsonObject(table.getGenerationSettings()));
+		putIfValueNotNull(jsonObject, JsonModelConstants.Table.CONSTRAINTS, tableConstraintListToJsonArray(table.getConstraints()));
+		putIfValueNotNull(jsonObject, JsonModelConstants.Table.GENERATION_SETTINGS, generationSettingsToJsonObject(table.getGenerationSettings()));
 		result = jsonObject;
 	}
 
@@ -92,7 +92,7 @@ class DatabaseToJsonObjectConverter implements Visitor {
 				jsonArray.add(result);
 			}
 		}
-		return jsonArray;
+		return jsonArray.isEmpty() ? null : jsonArray;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -161,8 +161,8 @@ class DatabaseToJsonObjectConverter implements Visitor {
 		if (type != null) {
 			jsonObject.put(JsonModelConstants.Column.DATA_TYPE, type.toString());
 		}
-		jsonObject.put(JsonModelConstants.Column.CONSTRAINTS, columnConstraintListToJsonArray(column.getConstraints()));
-		jsonObject.put(JsonModelConstants.Column.GENERATION_SETTINGS, generationSettingsToJsonObject(column.getGenerationSettings()));
+		putIfValueNotNull(jsonObject, JsonModelConstants.Column.CONSTRAINTS, columnConstraintListToJsonArray(column.getConstraints()));
+		putIfValueNotNull(jsonObject, JsonModelConstants.Column.GENERATION_SETTINGS, generationSettingsToJsonObject(column.getGenerationSettings()));
 		result = jsonObject;
 	}
 
@@ -175,13 +175,17 @@ class DatabaseToJsonObjectConverter implements Visitor {
 				jsonArray.add(result);
 			}
 		}
-		return jsonArray;
+		return jsonArray.isEmpty() ? null : jsonArray;
 	}
 
 	@SuppressWarnings("unchecked")
 	public void visit(PrimaryKeyColumnConstraint constraint) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put(JsonModelConstants.Constraint.CONSTRAINT_TYPE, JsonModelConstants.Constraint.TYPE_PRIMARY_KEY);
+		boolean autoIncrement = constraint.isAutoIncrement();
+		if (autoIncrement) {
+			jsonObject.put(JsonModelConstants.Constraint.AUTO_INCREMENT, autoIncrement);	
+		}
 		OrderDirection orderDirection = constraint.getOrderDirection();
 		if (orderDirection != null) {
 			jsonObject.put(JsonModelConstants.Constraint.ORDER_DIRECTION, orderDirection.toString());	
@@ -218,6 +222,12 @@ class DatabaseToJsonObjectConverter implements Visitor {
 		jsonObject.put(JsonModelConstants.Constraint.CONSTRAINT_TYPE, JsonModelConstants.Constraint.TYPE_DEFAULT_VALUE);
 		jsonObject.put(JsonModelConstants.Constraint.VALUE, constraint.getValue());
 		result = jsonObject;
+	}
+	
+	private static <K,V> void putIfValueNotNull(Map<K,V> map, K key, V value) {
+		if (value != null) {
+			map.put(key, value);
+		}
 	}
 
 }
