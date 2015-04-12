@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -77,6 +79,7 @@ class JsonModelParser {
 		try {
 			database.setName((String)model.get(JsonModelConstants.Database.DATABASE_NAME));
 			database.setTables(toModelTableList((JSONArray)model.get(JsonModelConstants.Database.TABLES)));
+			database.setGenerationSettings(toModelGenerationSettings((JSONObject)model.get(JsonModelConstants.Database.GENERATION_SETTINGS)));
 		} catch (Exception e) {
 			throw new ParseException("Failed to read database model fom JSON", e);
 		}
@@ -97,7 +100,15 @@ class JsonModelParser {
 		table.setName((String)jsonObject.get(JsonModelConstants.Table.TABLE_NAME));
 		table.setColumns(toModelColumnList((JSONArray)jsonObject.get(JsonModelConstants.Table.COLUMNS)));
 		table.setConstraints(toModelTableConstraintList((JSONArray)jsonObject.get(JsonModelConstants.Table.CONSTRAINTS)));
+		table.setGenerationSettings(toModelGenerationSettings((JSONObject)jsonObject.get(JsonModelConstants.Table.GENERATION_SETTINGS)));
 		return table;
+	}
+
+	@SuppressWarnings("unchecked")
+	private Map<String, Object> toModelGenerationSettings(JSONObject jsonObject) {
+		Map<String, Object> genSettings = new LinkedHashMap<String, Object>();
+		genSettings.putAll(jsonObject);
+		return genSettings;
 	}
 
 	private List<Column> toModelColumnList(JSONArray jsonArray) {
@@ -117,6 +128,7 @@ class JsonModelParser {
 		DataType dataType = dataTypeName == null ? DataType.NONE : DataType.valueOf(dataTypeName.toUpperCase());
 		column.setType(dataType);
 		column.setConstraints(toModelColumnConstraintList((JSONArray)jsonObject.get(JsonModelConstants.Column.CONSTRAINTS)));
+		column.setGenerationSettings(toModelGenerationSettings((JSONObject)jsonObject.get(JsonModelConstants.Column.GENERATION_SETTINGS)));
 		return column;
 	}
 

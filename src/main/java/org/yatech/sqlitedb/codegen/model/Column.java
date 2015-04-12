@@ -1,12 +1,16 @@
 package org.yatech.sqlitedb.codegen.model;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Column implements Visitable {
 	
 	private String name;
 	private DataType type;
-	private List<ColumnConstraint> constraints;
+	private List<ColumnConstraint> constraints = new ArrayList<ColumnConstraint>();
+	private Map<String, Object> generationSettings = new LinkedHashMap<String, Object>(); 
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
@@ -36,6 +40,14 @@ public class Column implements Visitable {
 		this.constraints = constraints;
 	}
 	
+	public Map<String, Object> getGenerationSettings() {
+		return generationSettings;
+	}
+
+	public void setGenerationSettings(Map<String, Object> generationSettings) {
+		this.generationSettings = generationSettings;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s %s %s", name, type, constraints);

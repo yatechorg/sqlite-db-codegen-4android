@@ -3,7 +3,7 @@ package org.yatech.sqlitedb.codegen.model;
 public class PrimaryKeyColumnConstraint extends ColumnConstraint {
 	
 	private OrderDirection orderDirection;
-	private boolean autoIncrement;
+	private boolean autoIncrement = false;
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);

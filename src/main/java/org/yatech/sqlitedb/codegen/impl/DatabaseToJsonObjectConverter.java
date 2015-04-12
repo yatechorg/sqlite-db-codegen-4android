@@ -1,6 +1,7 @@
 package org.yatech.sqlitedb.codegen.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -35,9 +36,19 @@ class DatabaseToJsonObjectConverter implements Visitor {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put(JsonModelConstants.Database.DATABASE_NAME, database.getName());
 		jsonObject.put(JsonModelConstants.Database.TABLES, tableListToJsonArray(database.getTables()));
+		jsonObject.put(JsonModelConstants.Database.GENERATION_SETTINGS, generationSettingsToJsonObject(database.getGenerationSettings()));
 		result = jsonObject;
 	}
 	
+	@SuppressWarnings("unchecked")
+	private JSONObject generationSettingsToJsonObject(Map<String, Object> generationSettings) {
+		JSONObject jsonObject = new JSONObject();
+		if (generationSettings != null) {
+			jsonObject.putAll(generationSettings);
+		}
+		return jsonObject;
+	}
+
 	@SuppressWarnings("unchecked")
 	private JSONArray tableListToJsonArray(List<Table> tables) {
 		JSONArray jsonArray = new JSONArray();
@@ -56,6 +67,7 @@ class DatabaseToJsonObjectConverter implements Visitor {
 		jsonObject.put(JsonModelConstants.Table.TABLE_NAME, table.getName());
 		jsonObject.put(JsonModelConstants.Table.COLUMNS, columnListToJsonArray(table.getColumns()));
 		jsonObject.put(JsonModelConstants.Table.CONSTRAINTS, tableConstraintListToJsonArray(table.getConstraints()));
+		jsonObject.put(JsonModelConstants.Table.GENERATION_SETTINGS, generationSettingsToJsonObject(table.getGenerationSettings()));
 		result = jsonObject;
 	}
 
@@ -150,6 +162,7 @@ class DatabaseToJsonObjectConverter implements Visitor {
 			jsonObject.put(JsonModelConstants.Column.DATA_TYPE, type.toString());
 		}
 		jsonObject.put(JsonModelConstants.Column.CONSTRAINTS, columnConstraintListToJsonArray(column.getConstraints()));
+		jsonObject.put(JsonModelConstants.Column.GENERATION_SETTINGS, generationSettingsToJsonObject(column.getGenerationSettings()));
 		result = jsonObject;
 	}
 

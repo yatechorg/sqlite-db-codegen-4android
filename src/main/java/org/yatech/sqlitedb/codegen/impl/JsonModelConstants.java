@@ -8,6 +8,7 @@ final class JsonModelConstants {
 		private Database() {}
 		static final String DATABASE_NAME = "databaseName";
 		static final String TABLES = "tables";
+		static final String GENERATION_SETTINGS = "generationSettings";
 	}
 	
 	static class Table {
@@ -15,6 +16,7 @@ final class JsonModelConstants {
 		static final String TABLE_NAME = "tableName";
 		static final String COLUMNS = "columns";
 		static final String CONSTRAINTS = "constraints";
+		static final String GENERATION_SETTINGS = "generationSettings";
 	}
 	
 	static class Column {
@@ -22,6 +24,7 @@ final class JsonModelConstants {
 		static final String COLUMN_NAME = "columnName";
 		static final String DATA_TYPE = "dataType";
 		static final String CONSTRAINTS = "constraints";
+		static final String GENERATION_SETTINGS = "generationSettings";
 	}
 	
 	static class Constraint {

@@ -1,10 +1,11 @@
 package org.yatech.sqlitedb.codegen.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UniqueTableConstraint extends TableConstraint {
 	
-	private List<IndexedColumn> columns;
+	private List<IndexedColumn> columns = new ArrayList<IndexedColumn>();
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
