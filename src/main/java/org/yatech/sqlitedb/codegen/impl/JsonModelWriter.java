@@ -17,13 +17,17 @@ class JsonModelWriter {
 
 	public static String toString(Database database) {
 		try {
-			JsonModelWriter modelWriter = new JsonModelWriter(database);
 			Writer writer = new StringWriter();
-			modelWriter.write(writer);
+			write(database, writer);
 			return writer.toString();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public static void write(Database database, Writer writer) throws IOException {
+		JsonModelWriter modelWriter = new JsonModelWriter(database);
+		modelWriter.write(writer);
 	}
 
 	private void write(Writer writer) throws IOException {
