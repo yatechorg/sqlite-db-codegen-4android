@@ -45,7 +45,7 @@ class JsonModelParser {
 		return parse(reader);
 	}
 
-	private static Database parse(Reader reader) throws ParseException {
+	public static Database parse(Reader reader) throws ParseException {
 		JsonModelParser parser = new JsonModelParser(reader);
 		return parser.parse();
 	}

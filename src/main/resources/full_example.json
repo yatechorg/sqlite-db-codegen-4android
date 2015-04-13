@@ -57,7 +57,7 @@
 	    	    	"dataType" : "INTEGER",
 	    	    	"constraints" : [
 	    	    	    {
-	    	    	    	"constraintType" : "ForeginKey",
+	    	    	    	"constraintType" : "ForeignKey",
 	    	    	    	"foreignTable" : "TABLE1",
 	    	    	    	"foreignColumn" : "COL1"
 	    	    	    }
