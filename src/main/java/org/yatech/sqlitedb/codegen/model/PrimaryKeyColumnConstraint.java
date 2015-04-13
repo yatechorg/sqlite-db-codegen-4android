@@ -4,6 +4,13 @@ public class PrimaryKeyColumnConstraint extends ColumnConstraint {
 	
 	private OrderDirection orderDirection;
 	private boolean autoIncrement = false;
+	
+	public PrimaryKeyColumnConstraint() { }
+	
+	public PrimaryKeyColumnConstraint(OrderDirection orderDirection, boolean autoIncrement) { 
+		this.orderDirection = orderDirection;
+		this.autoIncrement = autoIncrement;
+	}
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);

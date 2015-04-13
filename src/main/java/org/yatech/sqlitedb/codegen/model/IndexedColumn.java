@@ -4,6 +4,17 @@ public class IndexedColumn implements Visitable {
 	
 	private String columnName;
 	private OrderDirection orderDirection;
+	
+	public IndexedColumn() { }
+	
+	public IndexedColumn(String name) { 
+		this(name, null);
+	}
+	
+	public IndexedColumn(String name, OrderDirection orderDirection) { 
+		this.columnName = name;
+		this.orderDirection = orderDirection;
+	}
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);

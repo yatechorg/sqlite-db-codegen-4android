@@ -4,6 +4,12 @@ public class DefaultValueColumnConstraint extends ColumnConstraint {
 	
 	private Object value;
 	
+	public DefaultValueColumnConstraint() { }
+	
+	public DefaultValueColumnConstraint(Object value) {
+		this.value = value;
+	}
+	
 	public void setValue(Object value) {
 		this.value = value;
 	}

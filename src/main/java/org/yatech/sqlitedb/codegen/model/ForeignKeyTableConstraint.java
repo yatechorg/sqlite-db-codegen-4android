@@ -8,6 +8,14 @@ public class ForeignKeyTableConstraint extends TableConstraint {
 	private List<String> columnNames = new ArrayList<String>();
 	private String foreignTableName;
 	private List<String> foreignColumnNames = new ArrayList<String>();
+	
+	public ForeignKeyTableConstraint() { }
+	
+	public ForeignKeyTableConstraint(List<String> columnNames, String foreignTableName, List<String> foreignColumnNames) { 
+		this.columnNames = columnNames;
+		this.foreignTableName = foreignTableName;
+		this.foreignColumnNames = foreignColumnNames;
+	}
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);

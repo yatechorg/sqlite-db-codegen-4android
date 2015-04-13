@@ -6,6 +6,12 @@ import java.util.List;
 public class PrimaryKeyTableConstraint extends TableConstraint {
 	
 	private List<IndexedColumn> columns = new ArrayList<IndexedColumn>();
+	
+	public PrimaryKeyTableConstraint() { }
+	
+	public PrimaryKeyTableConstraint(List<IndexedColumn> columns) { 
+		this.columns = columns;
+	}
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);

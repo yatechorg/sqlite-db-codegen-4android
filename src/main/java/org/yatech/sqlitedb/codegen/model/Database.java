@@ -10,6 +10,12 @@ public class Database implements Visitable {
 	private String name;
 	private List<Table> tables = new ArrayList<Table>();
 	private Map<String, Object> generationSettings = new LinkedHashMap<String, Object>();
+	
+	public Database() { }
+
+	public Database(String name) { 
+		this.name = name;
+	}
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);

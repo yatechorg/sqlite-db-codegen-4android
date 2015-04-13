@@ -6,6 +6,12 @@ import java.util.List;
 public class UniqueTableConstraint extends TableConstraint {
 	
 	private List<IndexedColumn> columns = new ArrayList<IndexedColumn>();
+	
+	public UniqueTableConstraint() { }
+	
+	public UniqueTableConstraint(List<IndexedColumn> columns) { 
+		this.columns = columns;
+	}
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);

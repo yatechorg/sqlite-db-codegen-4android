@@ -11,6 +11,17 @@ public class Column implements Visitable {
 	private DataType type;
 	private List<ColumnConstraint> constraints = new ArrayList<ColumnConstraint>();
 	private Map<String, Object> generationSettings = new LinkedHashMap<String, Object>(); 
+	
+	public Column() { }
+
+	public Column(String name) {
+		this(name, null);
+	}
+
+	public Column(String name, DataType type) {
+		this.name = name;
+		this.type = type;
+	}
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);

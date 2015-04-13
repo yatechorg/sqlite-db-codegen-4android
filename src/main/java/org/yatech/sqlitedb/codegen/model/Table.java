@@ -11,6 +11,12 @@ public class Table implements Visitable {
 	private List<Column> columns = new ArrayList<Column>();
 	private List<TableConstraint> constraints = new ArrayList<TableConstraint>();
 	private Map<String, Object> generationSettings = new LinkedHashMap<String, Object>();
+	
+	public Table() { }
+	
+	public Table(String name) {
+		this.name = name;
+	}
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
